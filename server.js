@@ -31,23 +31,25 @@ app.get('/search/:img', function (req, res) {
     if (!error && response.statusCode == 200) {
       
       body = JSON.parse(body);
-      
+
       for (let image of body.images) {
-        
+        cl(image.display_sizes);
         let information = {
           imageURL : image.display_sizes[0].uri,
           altText : image.title,
-          pageURL : image.referral_destinations[1].uri
+          pageURL : (image.referral_destinations[1]) ? image.referral_destinations[1] : image.referral_destinations[0]
         };
         
         responseArray.push(information);
 
-      res.send(responseArray);
+      
 
     }
+
+      res.send(responseArray);
       }
     else {
-      // res.send(error, response.statusCode);
+      res.send(error, response.statusCode);
     }
   });
   
