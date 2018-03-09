@@ -5,7 +5,7 @@ var app = express();
 
 
 app.get("/", function (request, response) {
-  response.send('<h1>image search</h1><br><p>searc');
+  response.send('<h1>image search</h1><br><p>search for a specific phrase by pointing to /search/{phrase}</p><br>get a list of wedding events');
 });
 
 app.get('/search/:img', function (req, res) {
