@@ -64,7 +64,7 @@ app.get('/latest', function (req, res) {
   }
   
   var options = {
-    url: "https://api.gettyimages.com/v3/search/events",
+    url: "https://api.gettyimages.com/v3/search/events/trending",
     headers: {
       'Api-Key': process.env.API_KEY
     }
