@@ -64,7 +64,7 @@ app.get('/latest', function (req, res) {
   }
   
   var options = {
-    url: "https://api.gettyimages.com/v3/events?id=1",
+    url: "https://api.gettyimages.com/v3/search/events",
     headers: {
       'Api-Key': process.env.API_KEY
     }
@@ -103,7 +103,7 @@ app.get('/latest', function (req, res) {
     }
     else {
       cl(error);
-      res.status(status).send(body);
+      res.send(error, response.statusCode);
     }
   });
   
