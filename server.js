@@ -5,7 +5,7 @@ var app = express();
 
 
 app.get("/", function (request, response) {
-  response.send('search for image');
+  response.send('<h1>image search</h1><br><p>searc');
 });
 
 app.get('/search/:img', function (req, res) {
@@ -66,7 +66,7 @@ app.get('/events', function (req, res) {
   }
   
   var options = {
-    url: "https://api.gettyimages.com/v3/search/events?phrase=big bang&page="+page+"&page_size=10",
+    url: "https://api.gettyimages.com/v3/search/events?phrase=wedding&page="+page+"&page_size=10",
     headers: {
       'Api-Key': process.env.API_KEY
     }
