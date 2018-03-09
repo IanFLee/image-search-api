@@ -10,7 +10,8 @@ app.get("/", function (request, response) {
 
 app.get('/search/:img', function (req, res) {
   
-  var page = 1;  
+  var page = 1;
+  var responseArray = [];
   
   if (req.query.page) {
     page = req.query.page;
@@ -29,25 +30,24 @@ app.get('/search/:img', function (req, res) {
     console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
     if (!error && response.statusCode == 200) {
       
-      /* 
-      PER SEARCH STRING RETURN:
-       image URLs, alt text and page urls 
-      */
-      
       body = JSON.parse(body);
       
-      var information = {
-        imageURL : 'a', //body.images[0].display_sizes[0].uri
-        altText : 'a', //body.images[0].title
-        pageURL : body.images //[0].referral_destinations[1].uri
-      };
+      for (let image of body.images) {
+        
+        let information = {
+          imageURL : image.display_sizes[0].uri,
+          altText : image.title,
+          pageURL : image.referral_destinations[1].uri
+        };
+        
+        responseArray.push(information);
 
-      res.send(body.images);
-      //res.send(body.images[0].display_sizes[0].uri);
-      
+      res.send(responseArray);
+
     }
+      }
     else {
-
+      // res.send(error, response.statusCode);
     }
   });
   
@@ -64,7 +64,7 @@ app.get('/latest', function (req, res) {
   }
   
   var options = {
-    url: "https://api.gettyimages.com/v3/search/events?phrase=wedding&page=3&page_size=10",
+    url: "https://api.gettyimages.com/v3/search/events?phrase=wedding&page="+page+"&page_size=10",
     headers: {
       'Api-Key': process.env.API_KEY
     }
@@ -82,25 +82,9 @@ app.get('/latest', function (req, res) {
       */
       
       body = JSON.parse(body);
-      
-      /*
-      for (let image in body) {
-        
-        let information = {
-          imageURL : image.display_size[0].uri,
-          altText : image.title,
-          pageURL : image.referral_destinations[1].uri
-        };
-        
-        responseArray.push(information);
-        
-      }
-      */      
-      cl('?');
 
       res.send(body);
-      //res.send(body.images[0].display_sizes[0].uri);
-      
+
     }
     else {
       cl(error);
