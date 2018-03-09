@@ -64,7 +64,7 @@ app.get('/latest', function (req, res) {
   }
   
   var options = {
-    url: "https://api.gettyimages.com/v3/search/events?page="+page+"&page_size=10",
+    url: "https://api.gettyimages.com/v3/events?id=1",
     headers: {
       'Api-Key': process.env.API_KEY
     }
@@ -102,7 +102,8 @@ app.get('/latest', function (req, res) {
       
     }
     else {
-      res.send(error);
+      cl(error);
+      res.status(status).send(body);
     }
   });
   
