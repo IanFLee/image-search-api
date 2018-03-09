@@ -13,7 +13,7 @@ app.get('/search/:img', function (req, res) {
   var page = 1;
   var responseArray = [];
   
-  if (req.query.page) {
+  if (req.query.offset) {
     page = req.query.page;
   }
   
@@ -37,7 +37,7 @@ app.get('/search/:img', function (req, res) {
         let information = {
           imageURL : image.display_sizes[0].uri,
           altText : image.title,
-          pageURL : (image.referral_destinations[1]) ? image.referral_destinations[1] : image.referral_destinations[0]
+          pageURL : (image.referral_destinations[1]) ? image.referral_destinations[1].uri : image.referral_destinations[0].uri
         };
         
         responseArray.push(information);
@@ -56,17 +56,17 @@ app.get('/search/:img', function (req, res) {
 });
 
 
-app.get('/latest', function (req, res) {
-  cl('?');
+app.get('/events', function (req, res) {
+
   var page = 1;
   var responseArray;
   
-  if (req.query.page) {
+  if (req.query.offset) {
     page = req.query.page;
   }
   
   var options = {
-    url: "https://api.gettyimages.com/v3/search/events?phrase=wedding&page="+page+"&page_size=10",
+    url: "https://api.gettyimages.com/v3/search/events?phrase=big bang&page="+page+"&page_size=10",
     headers: {
       'Api-Key': process.env.API_KEY
     }
@@ -78,13 +78,7 @@ app.get('/latest', function (req, res) {
     console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
     if (!error && response.statusCode == 200) {
       
-      /* 
-      PER SEARCH STRING RETURN:
-       image URLs, alt text and page urls 
-      */
-      
       body = JSON.parse(body);
-
       res.send(body);
 
     }
