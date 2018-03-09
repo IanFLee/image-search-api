@@ -21,9 +21,20 @@ app.get('/:img', function (req, res) {
   request(options, function (error, response, body) {
     console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
     if (!error && response.statusCode == 200) {
+      
+      /* 
+      PER SEARCH STRING RETURN:
+       image URLs, alt text and page urls 
+      */
+      
+      var information = {
+        imageURL : 'a', //body.images[0].display_sizes[0].uri
+        altText : 'a',
+        pageURL : body.images //[0].referral_destinations[1].uri
+      };
 
       body = JSON.parse(body);
-      res.send(body);
+      res.send(body.images);
       //res.send(body.images[0].display_sizes[0].uri);
       
     }
