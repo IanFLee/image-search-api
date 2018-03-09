@@ -11,7 +11,7 @@ app.get('/:img', function (req, res) {
   cl(req.params.img);
   
   var options = {
-  url: "https://api.gettyimages.com/v3/search/images?fields=id,title,thumb,referral_destinations&sort_order=best&phrase="+req.params.img,
+  url: "https://api.gettyimages.com/v3/search/images?page=2&page_size=10&fields=id,title,thumb,referral_destinations&sort_order=best&phrase="+req.params.img,
   headers: {
     'Api-Key': process.env.API_KEY
   }
@@ -27,13 +27,14 @@ app.get('/:img', function (req, res) {
        image URLs, alt text and page urls 
       */
       
+      body = JSON.parse(body);
+      
       var information = {
         imageURL : 'a', //body.images[0].display_sizes[0].uri
-        altText : 'a',
+        altText : 'a', //body.images[0].title
         pageURL : body.images //[0].referral_destinations[1].uri
       };
 
-      body = JSON.parse(body);
       res.send(body.images);
       //res.send(body.images[0].display_sizes[0].uri);
       
