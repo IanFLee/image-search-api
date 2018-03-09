@@ -8,14 +8,18 @@ app.get("/", function (request, response) {
 
 app.get('/:img', function (req, res) {
   
-  cl(req.params.img);
+  var page = 1;
+  
+  if (req.query.page) {
+    page = req.query.page;
+  }
   
   var options = {
-  url: "https://api.gettyimages.com/v3/search/images?page=2&page_size=10&fields=id,title,thumb,referral_destinations&sort_order=best&phrase="+req.params.img,
-  headers: {
-    'Api-Key': process.env.API_KEY
-  }
-};
+    url: "https://api.gettyimages.com/v3/search/images?page="+page+"&page_size=10&fields=id,title,thumb,referral_destinations&sort_order=best&phrase="+req.params.img,
+    headers: {
+      'Api-Key': process.env.API_KEY
+    }
+  };
  
   var request = require('request');
   request(options, function (error, response, body) {
