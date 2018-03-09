@@ -8,7 +8,7 @@ app.get("/", function (request, response) {
   response.send('search for image');
 });
 
-app.get('/:img', function (req, res) {
+app.get('/search/:img', function (req, res) {
   
   var page = 1;  
   
@@ -55,8 +55,9 @@ app.get('/:img', function (req, res) {
 
 
 app.get('/latest', function (req, res) {
-  
-  var page = 1;  
+  cl('?');
+  var page = 1;
+  var responseArray;
   
   if (req.query.page) {
     page = req.query.page;
@@ -82,20 +83,26 @@ app.get('/latest', function (req, res) {
       
       body = JSON.parse(body);
       
-      for (l
+      for (let image in body) {
+        
+        let information = {
+          imageURL : image.display_size[0].uri,
+          altText : image.title,
+          pageURL : image.referral_destinations[1].uri
+        };
+        
+        responseArray.push(information);
+        
+      }
       
-      var information = {
-        imageURL : 'a', //body.images[0].display_sizes[0].uri
-        altText : 'a', //body.images[0].title
-        pageURL : body //[0].referral_destinations[1].uri
-      };
+      cl('?');
 
-      res.send(body);
+      res.send(responseArray);
       //res.send(body.images[0].display_sizes[0].uri);
       
     }
     else {
-
+      res.send(error);
     }
   });
   
