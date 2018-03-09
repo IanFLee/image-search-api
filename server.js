@@ -64,7 +64,7 @@ app.get('/latest', function (req, res) {
   }
   
   var options = {
-    url: "https://api.gettyimages.com/v3/search/events",
+    url: "https://api.gettyimages.com/v3/search/events?phrase=wedding&page=3&page_size=10",
     headers: {
       'Api-Key': process.env.API_KEY
     }
@@ -83,6 +83,7 @@ app.get('/latest', function (req, res) {
       
       body = JSON.parse(body);
       
+      /*
       for (let image in body) {
         
         let information = {
@@ -94,10 +95,10 @@ app.get('/latest', function (req, res) {
         responseArray.push(information);
         
       }
-      
+      */      
       cl('?');
 
-      res.send(responseArray);
+      res.send(body);
       //res.send(body.images[0].display_sizes[0].uri);
       
     }
