@@ -1,23 +1,11 @@
 Image Search API
 =========================
 
-Use the endpoint
+Use the endpoint '/search/{your search term here}' to search for images.
+Use the endpoint '/latest' to display the most recent search terms.
+
+Use the query string '?offset=2' to get the second page of results, '?offset=3' for the third page, etc.
 
 
-Your Project
-------------
-
-On the front-end,
-- edit `public/client.js`, `public/style.css` and `views/index.html`
-- drag in `assets`, like images or music, to add them to your project
-
-On the back-end,
-- your app starts at `server.js`
-- add frameworks and packages in `package.json`
-- safely store app secrets in `.env` (nobody can see this but you and people you invite)
-
-
-Made by [Fog Creek](https://fogcreek.com/)
+This API uses the gettyimages-api and MongoDB.
 -------------------
-
-\ ゜o゜)ノ
